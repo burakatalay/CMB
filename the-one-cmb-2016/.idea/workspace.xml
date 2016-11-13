@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a72ad69e-4731-41ad-b318-08fc122ca5a5" name="Default" comment="" />
+    <list default="true" id="a72ad69e-4731-41ad-b318-08fc122ca5a5" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmb_sample_settings/SampleSettings.txt" afterPath="$PROJECT_DIR$/cmb_sample_settings/SampleSettings.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/cluster/ferryroute.wkt" afterPath="$PROJECT_DIR$/data/cluster/ferryroute.wkt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/movement/ProhibitedPolygonRwp.java" afterPath="$PROJECT_DIR$/src/movement/ProhibitedPolygonRwp.java" />
+    </list>
     <ignored path="the-one-cmb-2016.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -27,7 +31,7 @@
         <entry file="file://$PROJECT_DIR$/cmb_sample_settings/SampleSettings.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+              <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -37,7 +41,7 @@
         <entry file="file://$PROJECT_DIR$/data/cluster/ferryroute.wkt">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="35" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
+              <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -46,14 +50,17 @@
       <file leaf-file-name="ProhibitedPolygonRwp.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/movement/ProhibitedPolygonRwp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.55228275">
-              <caret line="29" column="73" selection-start-line="29" selection-start-column="73" selection-end-line="29" selection-end-column="73" />
+            <state vertical-scroll-proportion="0.33136967">
+              <caret line="51" column="38" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -63,8 +70,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/cmb_sample_settings/SampleSettings.txt" />
         <option value="$PROJECT_DIR$/data/cluster/ferryroute.wkt" />
+        <option value="$PROJECT_DIR$/cmb_sample_settings/SampleSettings.txt" />
         <option value="$PROJECT_DIR$/src/movement/ProhibitedPolygonRwp.java" />
       </list>
     </option>
@@ -79,7 +86,7 @@
     <option name="width" value="1920" />
     <option name="height" value="1123" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -737,12 +744,12 @@
       <created>1479052500234</created>
       <option name="number" value="Default" />
       <updated>1479052500234</updated>
-      <workItem from="1479052501434" duration="278000" />
+      <workItem from="1479052501434" duration="1534000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="278000" />
+    <option name="totallyTimeSpent" value="1534000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1920" height="1123" extended-state="6" />
@@ -755,7 +762,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32922202" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32922202" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -796,7 +803,7 @@
     <entry file="file://$PROJECT_DIR$/cmb_sample_settings/SampleSettings.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -804,15 +811,15 @@
     <entry file="file://$PROJECT_DIR$/data/cluster/ferryroute.wkt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="35" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
+          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/movement/ProhibitedPolygonRwp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55228275">
-          <caret line="29" column="73" selection-start-line="29" selection-start-column="73" selection-end-line="29" selection-end-column="73" />
+        <state vertical-scroll-proportion="0.33136967">
+          <caret line="51" column="38" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="38" />
           <folding />
         </state>
       </provider>

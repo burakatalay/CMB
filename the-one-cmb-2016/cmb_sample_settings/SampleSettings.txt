@@ -4,7 +4,7 @@ Scenario.name = ProhibitedPolygon1
 Scenario.endTime = 60000
 Scenario.updateInterval = 0.1
 Scenario.simulateConnections = false
-MovementModel.worldSize = 1000,1000
+MovementModel.worldSize = 100000,100000
 Events.nrof = 0
 
 Scenario.nrofHostGroups = 2
