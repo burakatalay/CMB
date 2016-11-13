@@ -22,5 +22,7 @@ doc/package-list
 
 /out/
 
+the-one-cmb-2016/.idea/
+the-one-cmb-2016/.idea/*
 the-one-cmb-2016/.idea/workspace.xml
 the-one-cmb-2016/.idea/vcs.xml
