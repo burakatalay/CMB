@@ -6,6 +6,8 @@
 
 .class
 
+*.iml
+the-one-cmb-2016/the-one-cmb-2016.iml
 the-one-cmb-2016/.idea/
 the-one-cmb-2016/.idea/*
 the-one-cmb-2016/.idea/workspace.xml
