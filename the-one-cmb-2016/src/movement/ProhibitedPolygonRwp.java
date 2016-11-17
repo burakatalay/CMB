@@ -81,6 +81,10 @@ extends MovementModel {
           new Coord( 113859, 481406 ),
           new Coord( 113900, 482641 ),
           new Coord( 113420, 482641 )
+        /*  new Coord( 0, 0 ),
+          new Coord( 0, 200 ),
+          new Coord( 200, 0 ),
+          new Coord( 0, 0 ) */
   );
 
   private Coord lastWaypoint;
@@ -115,12 +119,14 @@ extends MovementModel {
 
   @Override
   public Coord getInitialLocation() {
-    do {
+    this.lastWaypoint = new Coord(113420, 482000);
+    return this.lastWaypoint;
+ /*   do {
       this.lastWaypoint = this.randomCoord();
     } while ( ( this.invert ) ?
         isOutside( polygon, this.lastWaypoint ) :
         isInside( this.polygon, this.lastWaypoint ) );
-    return this.lastWaypoint;
+    return this.lastWaypoint; */
   }
 
   @Override
@@ -130,8 +136,10 @@ extends MovementModel {
 
   private Coord randomCoord() {
     return new Coord(
-        rng.nextDouble() * super.getMaxX(),
-        rng.nextDouble() * super.getMaxY() );
+       // rng.nextDouble() * super.getMaxX(),
+       // rng.nextDouble() * super.getMaxY());
+            rng.nextDouble() * 113300,
+            rng.nextDouble() * 483000);
   }
   //==========================================================================//
 
