@@ -29,62 +29,63 @@ extends MovementModel {
   // Instance vars
   //==========================================================================//
   final List <Coord> polygon = Arrays.asList(
-          new Coord( 113420, 482641 ),
-          new Coord( 113351, 480773 ),
-          new Coord( 113859, 480782 ),
-          new Coord( 113845, 480507 ),
-          new Coord( 112815, 480507 ),
-          new Coord( 112788, 479238 ),
-          new Coord( 114422, 479257 ),
-          new Coord( 114450, 480516 ),
-          new Coord( 115136, 480516 ),
-          new Coord( 115081, 478677 ),
-          new Coord( 115493, 478686 ),
-          new Coord( 115521, 480525 ),
-          new Coord( 116194, 480525 ),
-          new Coord( 116194, 478686 ),
-          new Coord( 116674, 478686 ),
-          new Coord( 116661, 480534 ),
-          new Coord( 117141, 480543 ),
-          new Coord( 117141, 478695 ),
-          new Coord( 117622, 478704 ),
-          new Coord( 117594, 480525 ),
-          new Coord( 118157, 480553 ),
-          new Coord( 118089, 478667 ),
-          new Coord( 118679, 478677 ),
-          new Coord( 118638, 480543 ),
-          new Coord( 119256, 480525 ),
-          new Coord( 119229, 478713 ),
-          new Coord( 119696, 478713 ),
-          new Coord( 119696, 480516 ),
-          new Coord( 119696, 480938 ),
-          new Coord( 120162, 480938 ),
-          new Coord( 120863, 481479 ),
-          new Coord( 120039, 481891 ),
-          new Coord( 119311, 481534 ),
-          new Coord( 118446, 481497 ),
-          new Coord( 118446, 482477 ),
-          new Coord( 118006, 482486 ),
-          new Coord( 118020, 481470 ),
-          new Coord( 117251, 481451 ),
-          new Coord( 117237, 482797 ),
-          new Coord( 116647, 482778 ),
-          new Coord( 116619, 481461 ),
-          new Coord( 115946, 481442 ),
-          new Coord( 115946, 482778 ),
-          new Coord( 115315, 482760 ),
-          new Coord( 115342, 481433 ),
-          new Coord( 114820, 481415 ),
-          new Coord( 114793, 482751 ),
-          new Coord( 114340, 482778 ),
-          new Coord( 114353, 481387 ),
-          new Coord( 113859, 481406 ),
-          new Coord( 113900, 482641 ),
-          new Coord( 113420, 482641 )
-        /*  new Coord( 0, 0 ),
-          new Coord( 0, 200 ),
-          new Coord( 200, 0 ),
-          new Coord( 0, 0 ) */
+
+          new Coord( 0, 0 ),
+          new Coord( 0, 546 ),
+          new Coord( 279, 578 ),
+          new Coord( 258, 632 ),
+          new Coord( 32, 618 ),
+          new Coord( 11, 900 ),
+          new Coord( 392, 942 ),
+          new Coord( 456, 682 ),
+          new Coord( 676, 721 ),
+          new Coord( 494, 1167 ),
+          new Coord( 649, 1196 ),
+          new Coord( 767, 882 ),
+          new Coord( 1036, 942 ),
+          new Coord( 912, 1232 ),
+          new Coord( 1062, 1264 ),
+          new Coord( 1207, 903 ),
+          new Coord( 1481, 960 ),
+          new Coord( 1336, 1317 ),
+          new Coord( 1470, 1346 ),
+          new Coord( 1620, 989 ),
+          new Coord( 1878, 1035 ),
+          new Coord( 1733, 1407 ),
+          new Coord( 1894, 1432 ),
+          new Coord( 2028, 1060 ),
+          new Coord( 2285, 1117 ),
+          new Coord( 2146, 1471 ),
+          new Coord( 2328, 1507 ),
+          new Coord( 2484, 1071 ),
+          new Coord( 2259, 1042 ),
+          new Coord( 2285, 964 ),
+          new Coord( 2495, 964 ),
+          new Coord( 2629, 875 ),
+          new Coord( 2629, 775 ),
+          new Coord( 2473, 739 ),
+          new Coord( 2323, 757 ),
+          new Coord( 2248, 803 ),
+          new Coord( 1926, 767 ),
+          new Coord( 2044, 246 ),
+          new Coord( 1915, 228 ),
+          new Coord( 1792, 682 ),
+          new Coord( 1475, 628 ),
+          new Coord( 1583, 200 ),
+          new Coord( 1449, 175 ),
+          new Coord( 1331, 625 ),
+          new Coord( 1019, 582 ),
+          new Coord( 1143, 139 ),
+          new Coord( 982, 110 ),
+          new Coord( 864, 564 ),
+          new Coord( 569, 532 ),
+          new Coord( 676, 82 ),
+          new Coord( 531, 64 ),
+          new Coord( 403, 489 ),
+          new Coord( 156, 464 ),
+          new Coord( 183, 3 ),
+          new Coord( 0, 0 )
+
   );
 
   private Coord lastWaypoint;
@@ -119,14 +120,14 @@ extends MovementModel {
 
   @Override
   public Coord getInitialLocation() {
-    this.lastWaypoint = new Coord(113420, 482000);
-    return this.lastWaypoint;
- /*   do {
+    /*this.lastWaypoint = new Coord(113420, 482000);
+    return this.lastWaypoint; */
+   do {
       this.lastWaypoint = this.randomCoord();
     } while ( ( this.invert ) ?
         isOutside( polygon, this.lastWaypoint ) :
         isInside( this.polygon, this.lastWaypoint ) );
-    return this.lastWaypoint; */
+    return this.lastWaypoint;
   }
 
   @Override
@@ -136,10 +137,10 @@ extends MovementModel {
 
   private Coord randomCoord() {
     return new Coord(
-       // rng.nextDouble() * super.getMaxX(),
-       // rng.nextDouble() * super.getMaxY());
-            rng.nextDouble() * 113300,
-            rng.nextDouble() * 483000);
+        rng.nextDouble() * super.getMaxX(),
+        rng.nextDouble() * super.getMaxY());
+           // rng.nextDouble() * 113300,
+           // rng.nextDouble() * 483000);
   }
   //==========================================================================//
 

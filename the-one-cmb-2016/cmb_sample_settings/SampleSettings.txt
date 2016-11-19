@@ -4,12 +4,12 @@ Scenario.name = ProhibitedPolygon1
 Scenario.endTime = 60000
 Scenario.updateInterval = 0.1
 Scenario.simulateConnections = false
-MovementModel.worldSize = 100000,100000
+MovementModel.worldSize = 3000,3000
 Events.nrof = 0
 
 Scenario.nrofHostGroups = 2
 Group1.groupID = x
-Group1.nrofHosts = 2
+Group1.nrofHosts = 70
 Group1.nrofInterfaces = 1
 Group1.interface1 = myInterface
 myInterface.type = SimpleBroadcastInterface
