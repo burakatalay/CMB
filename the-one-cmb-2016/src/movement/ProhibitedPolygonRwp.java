@@ -3,8 +3,7 @@ package movement;
 import core.Coord;
 import core.Settings;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Random Waypoint Movement with a prohibited region where nodes may not move
@@ -28,64 +27,67 @@ extends MovementModel {
   //==========================================================================//
   // Instance vars
   //==========================================================================//
+  final List<Coord> attractionPoints = Arrays.asList(
+          new Coord( 1650.0, 400.0 ),
+          new Coord( 930.0, 100 )
+  );
+
+  final List<Coord> pathPoints = Arrays.asList(
+          new Coord( 1350.0, 400.0 ),
+          new Coord( 930.0, 400.0 ),
+          new Coord( 830, 400 ),
+          new Coord( 1130, 400),
+          new Coord( 530.0, 400.0 ),
+          new Coord( 530.0, 100.0 )
+  );
+
   final List <Coord> polygon = Arrays.asList(
 
           new Coord( 0, 0 ),
-          new Coord( 0, 546 ),
-          new Coord( 279, 578 ),
-          new Coord( 258, 632 ),
-          new Coord( 32, 618 ),
-          new Coord( 11, 900 ),
-          new Coord( 392, 942 ),
-          new Coord( 456, 682 ),
-          new Coord( 676, 721 ),
-          new Coord( 494, 1167 ),
-          new Coord( 649, 1196 ),
-          new Coord( 767, 882 ),
-          new Coord( 1036, 942 ),
-          new Coord( 912, 1232 ),
-          new Coord( 1062, 1264 ),
-          new Coord( 1207, 903 ),
-          new Coord( 1481, 960 ),
-          new Coord( 1336, 1317 ),
-          new Coord( 1470, 1346 ),
-          new Coord( 1620, 989 ),
-          new Coord( 1878, 1035 ),
-          new Coord( 1733, 1407 ),
-          new Coord( 1894, 1432 ),
-          new Coord( 2028, 1060 ),
-          new Coord( 2285, 1117 ),
-          new Coord( 2146, 1471 ),
-          new Coord( 2328, 1507 ),
-          new Coord( 2484, 1071 ),
-          new Coord( 2259, 1042 ),
-          new Coord( 2285, 964 ),
-          new Coord( 2495, 964 ),
-          new Coord( 2629, 875 ),
-          new Coord( 2629, 775 ),
-          new Coord( 2473, 739 ),
-          new Coord( 2323, 757 ),
-          new Coord( 2248, 803 ),
-          new Coord( 1926, 767 ),
-          new Coord( 2044, 246 ),
-          new Coord( 1915, 228 ),
-          new Coord( 1792, 682 ),
-          new Coord( 1475, 628 ),
-          new Coord( 1583, 200 ),
-          new Coord( 1449, 175 ),
-          new Coord( 1331, 625 ),
-          new Coord( 1019, 582 ),
-          new Coord( 1143, 139 ),
-          new Coord( 982, 110 ),
-          new Coord( 864, 564 ),
-          new Coord( 569, 532 ),
-          new Coord( 676, 82 ),
-          new Coord( 531, 64 ),
-          new Coord( 403, 489 ),
-          new Coord( 156, 464 ),
-          new Coord( 183, 3 ),
+          new Coord( 0, 557 ),
+          new Coord( 408, 561 ),
+          new Coord( 408, 632 ),
+          new Coord( 113, 629 ),
+          new Coord( 107, 868 ),
+          new Coord( 649, 864 ),
+          new Coord( 649, 668 ),
+          new Coord( 826, 668 ),
+          new Coord( 826, 1039 ),
+          new Coord( 1003, 1039 ),
+          new Coord( 1008, 657 ),
+          new Coord( 1234, 664 ),
+          new Coord( 1239, 1036 ),
+          new Coord( 1432, 1036 ),
+          new Coord( 1427, 661 ),
+          new Coord( 1598, 657 ),
+          new Coord( 1604, 1047 ),
+          new Coord( 1786, 1047 ),
+          new Coord( 1781, 657 ),
+          new Coord( 1920, 654 ),
+          new Coord( 1920, 1057 ),
+          new Coord( 2178, 1054 ),
+          new Coord( 2167, 539 ),
+          new Coord( 2065, 543 ),
+          new Coord( 2065, 454 ),
+          new Coord( 2349, 454 ),
+          new Coord( 2355, 179 ),
+          new Coord( 1888, 182 ),
+          new Coord( 1899, 343 ),
+          new Coord( 1432, 347 ),
+          new Coord( 1421, 7 ),
+          new Coord( 1250, 4 ),
+          new Coord( 1244, 343 ),
+          new Coord( 1008, 347 ),
+          new Coord( 1003, 4 ),
+          new Coord( 821, 0 ),
+          new Coord( 831, 354 ),
+          new Coord( 654, 354 ),
+          new Coord( 654, 3 ),
+          new Coord( 418, 0 ),
+          new Coord( 424, 339 ),
+          new Coord( 214, 343 ),
+          new Coord( 214, 4 ),
           new Coord( 0, 0 )
-
   );
 
   private Coord lastWaypoint;
@@ -107,26 +109,135 @@ extends MovementModel {
 
     // Add only one point. An arbitrary number of Coords could be added to
     // the path here and the simulator will follow the full path before
-    // asking for the next one.
-    Coord c;
+    // asking for -the next one.
+
+
+
+      LinkedList<Coord> path = new LinkedList<>();
+     // path = getPossiblePath(currentPoint, finalPoint, path);
+
+    int randomInt = rng.nextInt( pathPoints.size() );
+    Coord finalPoint = attractionPoints.get(1);
+
+    Coord currentPoint = this.lastWaypoint;
+    Coord nextPoint = null;
+
+    if(this.lastWaypoint.getX() != finalPoint.getX()) {
+      do {
+        randomInt = rng.nextInt(pathPoints.size());
+        nextPoint = pathPoints.get(randomInt);
+      }
+      while (nextPoint.getX() < finalPoint.getX() || (nextPoint.equals(this.lastWaypoint))
+              || nextPoint.getX() > this.lastWaypoint.getX());
+    }
+
+    if(this.lastWaypoint.getX() == finalPoint.getX() ) {
+      nextPoint = finalPoint;
+      p.addWaypoint(nextPoint);
+      this.lastWaypoint = nextPoint;
+
+    } else{
+
+      p.addWaypoint(nextPoint);
+      this.lastWaypoint = nextPoint;
+      return p;
+    }
+
+
+return p;
+
+      /*
+      Boolean firstXthenY = false;
+      Boolean firstYthenX = false;
+
+      int area;
+
+      if( this.lastWaypoint.getX() - finalPoint.getX() < 0){
+          if(this.lastWaypoint.getY() - finalPoint.getY() < 0){
+              area = 2;
+          }else{
+              area = 3;
+          }
+      }else{
+          if(this.lastWaypoint.getY() - finalPoint.getY() < 0){
+              area = 1;
+          }else{
+              area = 4;
+          }
+      }
+
+
+
+
+
+    Coord c = new Coord (finalPoint.getX(), this.lastWaypoint.getY());
+
+      if(pathIntersects(this.polygon, this.lastWaypoint, c)){
+
+      }
+
     do {
-      c = this.randomCoord();
+        switch (area){
+            case 1:
+                c = new Coord( this.lastWaypoint.getX() + 1.0, this.lastWaypoint.getY() - 1.0);
+                break;
+            case 2:
+                c = new Coord( this.lastWaypoint.getX() - 1.0, this.lastWaypoint.getY() - 1.0);
+                break;
+            case 3:
+                c = new Coord( this.lastWaypoint.getX() - 1.0, this.lastWaypoint.getY() + 1.0);
+                break;
+            case 4:
+                c = new Coord( this.lastWaypoint.getX() + 1.0, this.lastWaypoint.getY() + 1.0);
+                break;
+        }
     } while ( pathIntersects( this.polygon, this.lastWaypoint, c ) );
+
+
+   if(Math.abs(c.getX() - finalPoint.getX()) > 0 && Math.abs(c.getY() -  finalPoint.getY()) <= 0){
+
+   }
+
+
+
     p.addWaypoint( c );
 
     this.lastWaypoint = c;
     return p;
+      */
+
+//return p;
+
   }
+
+    public LinkedList getPossiblePath(Coord currentPoint, Coord finalPoint, LinkedList<Coord> path){
+
+        if( (path.getLast().getX() == finalPoint.getX() && path.getLast().getY() == finalPoint.getY()) || this.lastWaypoint.equals(finalPoint) ){
+            path.add(finalPoint);
+            return path;
+        }else{
+            for (Coord coord: this.attractionPoints){
+                if(currentPoint.getX() == coord.getX() || currentPoint.getY() == coord.getY()){
+                    path.add(coord);
+                }
+            }
+        }
+
+        return null;
+    }
 
   @Override
   public Coord getInitialLocation() {
     /*this.lastWaypoint = new Coord(113420, 482000);
     return this.lastWaypoint; */
-   do {
+  /* do {
       this.lastWaypoint = this.randomCoord();
     } while ( ( this.invert ) ?
         isOutside( polygon, this.lastWaypoint ) :
         isInside( this.polygon, this.lastWaypoint ) );
+    return this.lastWaypoint; */
+
+    this.lastWaypoint = new Coord( 1650.0, 400.0 );
     return this.lastWaypoint;
   }
 
@@ -139,7 +250,7 @@ extends MovementModel {
     return new Coord(
         rng.nextDouble() * super.getMaxX(),
         rng.nextDouble() * super.getMaxY());
-           // rng.nextDouble() * 113300,
+          // rng.nextDouble() * 113300,
            // rng.nextDouble() * 483000);
   }
   //==========================================================================//
@@ -184,39 +295,33 @@ extends MovementModel {
     return ( ( count % 2 ) != 0 );
   }
 
-  private static boolean isOutside(
-      final List <Coord> polygon,
-      final Coord point ) {
+  private static boolean isOutside( final List <Coord> polygon, final Coord point ) {
     return !isInside( polygon, point );
   }
 
-  private static int countIntersectedEdges(
-      final List <Coord> polygon,
-      final Coord start,
-      final Coord end ) {
+  private static int countIntersectedEdges(final List <Coord> polygon, final Coord start, final Coord end ) {
+
     int count = 0;
     for ( int i = 0; i < polygon.size() - 1; i++ ) {
       final Coord polyP1 = polygon.get( i );
       final Coord polyP2 = polygon.get( i + 1 );
 
-      final Coord intersection = intersection( start, end, polyP1, polyP2 );
+      final Coord intersection = intersection( start, end, polyP1, polyP2 ); // intersection of two lines
       if ( intersection == null ) continue;
 
-      if ( isOnSegment( polyP1, polyP2, intersection )
-            && isOnSegment( start, end, intersection ) ) {
+      if ( isOnSegment( polyP1, polyP2, intersection ) && isOnSegment( start, end, intersection ) ) {
         count++;
       }
     }
     return count;
+
   }
 
-  private static boolean isOnSegment(
-      final Coord L0,
-      final Coord L1,
-      final Coord point ) {
-    final double crossProduct
-        = ( point.getY() - L0.getY() ) * ( L1.getX() - L0.getX() )
-        - ( point.getX() - L0.getX() ) * ( L1.getY() - L0.getY() );
+  private static boolean isOnSegment(final Coord L0, final Coord L1, final Coord point ) {
+
+      final double crossProduct = ( point.getY() - L0.getY() ) * ( L1.getX() - L0.getX() )
+                                - ( point.getX() - L0.getX() ) * ( L1.getY() - L0.getY() );
+
     if ( Math.abs( crossProduct ) > 0.0000001 ) return false;
 
     final double dotProduct
@@ -232,15 +337,13 @@ extends MovementModel {
     return true;
   }
 
-  private static Coord intersection(
-      final Coord L0_p0,
-      final Coord L0_p1,
-      final Coord L1_p0,
-      final Coord L1_p1 ) {
+  private static Coord intersection(final Coord L0_p0, final Coord L0_p1, final Coord L1_p0, final Coord L1_p1 ) {
+
     final double[] p0 = getParams( L0_p0, L0_p1 );
     final double[] p1 = getParams( L1_p0, L1_p1 );
     final double D = p0[ 1 ] * p1[ 0 ] - p0[ 0 ] * p1[ 1 ];
-    if ( D == 0.0 ) return null;
+
+      if ( D == 0.0 ) return null;
 
     final double x = ( p0[ 2 ] * p1[ 1 ] - p0[ 1 ] * p1[ 2 ] ) / D;
     final double y = ( p0[ 2 ] * p1[ 0 ] - p0[ 0 ] * p1[ 2 ] ) / D;
@@ -248,12 +351,12 @@ extends MovementModel {
     return new Coord( x, y );
   }
 
-  private static double[] getParams(
-      final Coord c0,
-      final Coord c1 ) {
+  private static double[] getParams( final Coord c0,  final Coord c1 ) {
+
     final double A = c0.getY() - c1.getY();
     final double B = c0.getX() - c1.getX();
     final double C = c0.getX() * c1.getY() - c0.getY() * c1.getX();
+
     return new double[] { A, B, C };
   }
   //==========================================================================//
