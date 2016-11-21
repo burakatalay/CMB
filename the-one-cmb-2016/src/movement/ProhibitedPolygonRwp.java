@@ -21,6 +21,9 @@ extends MovementModel {
   /** {@code true} to confine nodes inside the polygon */
   public static final String INVERT_SETTING = "rwpInvert";
   public static final boolean INVERT_DEFAULT = false;
+
+  public int randomInt;
+  public Random random = new Random();
   //==========================================================================//
 
 
@@ -28,18 +31,16 @@ extends MovementModel {
   // Instance vars
   //==========================================================================//
   final List<Coord> attractionPoints = Arrays.asList(
-          new Coord( 1650.0, 400.0 ),
-          new Coord( 2000.0, 200.0 ),
-          new Coord( 1650.0, 900.0 ),
-          new Coord( 1650.0, 900.0 ),
-          new Coord( 1330.0, 100.0 ),
-          new Coord( 930.0, 100 ),
-          new Coord( 530.0, 100 ),
-          new Coord( 130.0, 100 ),
-          new Coord( 1330.0, 900.0 ),
-          new Coord( 930.0, 900 ),
-          new Coord( 530.0, 900 ),
-          new Coord( 530.0, 900 ),
+          new Coord( 2250.0, 400.0 ),
+          new Coord( 1350.0, 100.0 ),
+          new Coord( 900.0, 100.0 ),
+          new Coord( 500.0, 100.0 ),
+          new Coord( 100.0, 100.0 ),
+          new Coord( 530.0, 800.0 ),
+          new Coord( 900.0, 1000.0 ),
+          new Coord( 1350.0, 1000.0 ),
+          new Coord( 1700.0, 1000.0 ),
+          new Coord( 2000.0, 1000.0 ),
           new Coord( 530.0, 700 )
   );
 
@@ -51,6 +52,14 @@ extends MovementModel {
           new Coord( 930.0, 600.0 ),
           new Coord( 1330.0, 600.0 ),
           new Coord( 1650.0, 600.0 )
+  );
+
+  final List<Coord> insidePolygon = Arrays.asList(
+          new Coord(2000.0, 400.0),
+          new Coord(2000.0, 650.0),
+          new Coord(430.0, 400.0),
+          new Coord(430.0, 650.0),
+          new Coord(2000.0, 400.0)
   );
 
   final List <Coord> polygon = Arrays.asList(
@@ -122,67 +131,70 @@ extends MovementModel {
     // Add only one point. An arbitrary number of Coords could be added to
     // the path here and the simulator will follow the full path before
     // asking for -the next one.
+    Coord nextPoint;
+    Coord finalPoint;
+    Coord currentPoint;
+ /*   if(this.lastWaypoint.getX()<430.0) {
+      nextPoint = new Coord(100.0,400.0 );
+      p.addWaypoint(nextPoint);
+      return p;
+    } else if(this.lastWaypoint.getX()>2000.0) {
+      nextPoint = new Coord(2000.0,400.0);
+      p.addWaypoint(nextPoint);
+      return p;
+    }*/
 
-    LinkedList<Coord> path = new LinkedList<>();
-
-    int randomInt;
-    randomInt = rng.nextInt(attractionPoints.size());
-    Coord finalPoint = attractionPoints.get(randomInt);
-
-    Coord nextPoint = null;
-
-    if(this.lastWaypoint.getX() != finalPoint.getX()) {
-      do {
-        randomInt = rng.nextInt(pathPoints.size());
-        nextPoint = pathPoints.get(randomInt);
+    randomInt = random.nextInt(attractionPoints.size());
+    // finalPoint = attractionPoints.get(randomInt);
+    finalPoint = new Coord(1350.0, 1000.0);
+    do{
+      nextPoint = getNextLocation();
+      currentPoint = this.lastWaypoint;
+      if(!pathIntersects(this.polygon, this.lastWaypoint, nextPoint)) {
+        p.addWaypoint(nextPoint);
+        this.lastWaypoint = nextPoint;
+        return p;
       }
-      while (nextPoint.getX() < finalPoint.getX() || (nextPoint.equals(this.lastWaypoint))
-              || nextPoint.getX() > this.lastWaypoint.getX() || pathIntersects(this.polygon, this.lastWaypoint, nextPoint));
-    }
+    } while(calculateDistance(nextPoint,finalPoint) < calculateDistance(currentPoint, finalPoint));
 
-    if(this.lastWaypoint.getX() == finalPoint.getX() ) {
-      nextPoint = finalPoint;
-      p.addWaypoint(nextPoint);
-      this.lastWaypoint = nextPoint;
-    } else{
-      p.addWaypoint(nextPoint);
-      this.lastWaypoint = nextPoint;
-    }
-
-return p;
-
+    return p;
+ /*
+   do {
+      nextPoint = getNextLocation();
+      currentPoint = this.lastWaypoint;
+      if (!pathIntersects(this.polygon, this.lastWaypoint, nextPoint)) {
+        if (calculateDistance(nextPoint, finalPoint) < calculateDistance(currentPoint, finalPoint)) {
+          p.addWaypoint(nextPoint);
+          this.lastWaypoint = nextPoint;
+          return p;
+        }
+      }
+    }while (calculateDistance(nextPoint, finalPoint) < calculateDistance(currentPoint, finalPoint)) ;
+  return p;
+  */
 
   }
 
-    public LinkedList getPossiblePath(Coord currentPoint, Coord finalPoint, LinkedList<Coord> path){
-
-        if( (path.getLast().getX() == finalPoint.getX() && path.getLast().getY() == finalPoint.getY()) || this.lastWaypoint.equals(finalPoint) ){
-            path.add(finalPoint);
-            return path;
-        }else{
-            for (Coord coord: this.attractionPoints){
-                if(currentPoint.getX() == coord.getX() || currentPoint.getY() == coord.getY()){
-                    path.add(coord);
-                }
-            }
-        }
-
-        return null;
-    }
+  public double calculateDistance(Coord c1, Coord c2) {
+    double distance = Math.sqrt(((Math.pow((c1.getX()-c2.getX()),2)) + Math.pow((c1.getY()-c2.getY()),2)));
+    return distance;
+  }
 
   @Override
   public Coord getInitialLocation() {
-    /*this.lastWaypoint = new Coord(113420, 482000);
-    return this.lastWaypoint; */
-  /* do {
-      this.lastWaypoint = this.randomCoord();
-    } while ( ( this.invert ) ?
-        isOutside( polygon, this.lastWaypoint ) :
-        isInside( this.polygon, this.lastWaypoint ) );
-    return this.lastWaypoint; */
-    int randomInt = rng.nextInt(attractionPoints.size());
-    this.lastWaypoint =   attractionPoints.get(randomInt);
+   /* randomInt = random.nextInt(attractionPoints.size());
+    this.lastWaypoint = attractionPoints.get(randomInt); */
+    this.lastWaypoint = new Coord(530.0, 800.0);
     return this.lastWaypoint;
+
+  }
+
+  public Coord getNextLocation() {
+    Coord nextPoint;
+    do {
+      nextPoint = this.randomCoord();
+    } while (!isInside( this.insidePolygon, nextPoint ) );
+  return nextPoint;
   }
 
   @Override
@@ -192,10 +204,8 @@ return p;
 
   private Coord randomCoord() {
     return new Coord(
-        rng.nextDouble() * super.getMaxX(),
-        rng.nextDouble() * super.getMaxY());
-          // rng.nextDouble() * 113300,
-           // rng.nextDouble() * 483000);
+        random.nextDouble() * super.getMaxX(),
+        random.nextDouble() * super.getMaxY());
   }
   //==========================================================================//
 
