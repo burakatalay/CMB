@@ -29,16 +29,28 @@ extends MovementModel {
   //==========================================================================//
   final List<Coord> attractionPoints = Arrays.asList(
           new Coord( 1650.0, 400.0 ),
-          new Coord( 930.0, 100 )
+          new Coord( 2000.0, 200.0 ),
+          new Coord( 1650.0, 900.0 ),
+          new Coord( 1650.0, 900.0 ),
+          new Coord( 1330.0, 100.0 ),
+          new Coord( 930.0, 100 ),
+          new Coord( 530.0, 100 ),
+          new Coord( 130.0, 100 ),
+          new Coord( 1330.0, 900.0 ),
+          new Coord( 930.0, 900 ),
+          new Coord( 530.0, 900 ),
+          new Coord( 530.0, 900 ),
+          new Coord( 530.0, 700 )
   );
 
   final List<Coord> pathPoints = Arrays.asList(
-          new Coord( 1350.0, 400.0 ),
+          new Coord( 1650.0, 400.0 ),
+          new Coord( 1330.0, 400.0 ),
           new Coord( 930.0, 400.0 ),
-          new Coord( 830, 400 ),
-          new Coord( 1130, 400),
           new Coord( 530.0, 400.0 ),
-          new Coord( 530.0, 100.0 )
+          new Coord( 930.0, 600.0 ),
+          new Coord( 1330.0, 600.0 ),
+          new Coord( 1650.0, 600.0 )
   );
 
   final List <Coord> polygon = Arrays.asList(
@@ -111,15 +123,12 @@ extends MovementModel {
     // the path here and the simulator will follow the full path before
     // asking for -the next one.
 
+    LinkedList<Coord> path = new LinkedList<>();
 
+    int randomInt;
+    randomInt = rng.nextInt(attractionPoints.size());
+    Coord finalPoint = attractionPoints.get(randomInt);
 
-      LinkedList<Coord> path = new LinkedList<>();
-     // path = getPossiblePath(currentPoint, finalPoint, path);
-
-    int randomInt = rng.nextInt( pathPoints.size() );
-    Coord finalPoint = attractionPoints.get(1);
-
-    Coord currentPoint = this.lastWaypoint;
     Coord nextPoint = null;
 
     if(this.lastWaypoint.getX() != finalPoint.getX()) {
@@ -128,85 +137,20 @@ extends MovementModel {
         nextPoint = pathPoints.get(randomInt);
       }
       while (nextPoint.getX() < finalPoint.getX() || (nextPoint.equals(this.lastWaypoint))
-              || nextPoint.getX() > this.lastWaypoint.getX());
+              || nextPoint.getX() > this.lastWaypoint.getX() || pathIntersects(this.polygon, this.lastWaypoint, nextPoint));
     }
 
     if(this.lastWaypoint.getX() == finalPoint.getX() ) {
       nextPoint = finalPoint;
       p.addWaypoint(nextPoint);
       this.lastWaypoint = nextPoint;
-
     } else{
-
       p.addWaypoint(nextPoint);
       this.lastWaypoint = nextPoint;
-      return p;
     }
-
 
 return p;
 
-      /*
-      Boolean firstXthenY = false;
-      Boolean firstYthenX = false;
-
-      int area;
-
-      if( this.lastWaypoint.getX() - finalPoint.getX() < 0){
-          if(this.lastWaypoint.getY() - finalPoint.getY() < 0){
-              area = 2;
-          }else{
-              area = 3;
-          }
-      }else{
-          if(this.lastWaypoint.getY() - finalPoint.getY() < 0){
-              area = 1;
-          }else{
-              area = 4;
-          }
-      }
-
-
-
-
-
-    Coord c = new Coord (finalPoint.getX(), this.lastWaypoint.getY());
-
-      if(pathIntersects(this.polygon, this.lastWaypoint, c)){
-
-      }
-
-    do {
-        switch (area){
-            case 1:
-                c = new Coord( this.lastWaypoint.getX() + 1.0, this.lastWaypoint.getY() - 1.0);
-                break;
-            case 2:
-                c = new Coord( this.lastWaypoint.getX() - 1.0, this.lastWaypoint.getY() - 1.0);
-                break;
-            case 3:
-                c = new Coord( this.lastWaypoint.getX() - 1.0, this.lastWaypoint.getY() + 1.0);
-                break;
-            case 4:
-                c = new Coord( this.lastWaypoint.getX() + 1.0, this.lastWaypoint.getY() + 1.0);
-                break;
-        }
-    } while ( pathIntersects( this.polygon, this.lastWaypoint, c ) );
-
-
-   if(Math.abs(c.getX() - finalPoint.getX()) > 0 && Math.abs(c.getY() -  finalPoint.getY()) <= 0){
-
-   }
-
-
-
-    p.addWaypoint( c );
-
-    this.lastWaypoint = c;
-    return p;
-      */
-
-//return p;
 
   }
 
@@ -236,8 +180,8 @@ return p;
         isOutside( polygon, this.lastWaypoint ) :
         isInside( this.polygon, this.lastWaypoint ) );
     return this.lastWaypoint; */
-
-    this.lastWaypoint = new Coord( 1650.0, 400.0 );
+    int randomInt = rng.nextInt(attractionPoints.size());
+    this.lastWaypoint =   attractionPoints.get(randomInt);
     return this.lastWaypoint;
   }
 
