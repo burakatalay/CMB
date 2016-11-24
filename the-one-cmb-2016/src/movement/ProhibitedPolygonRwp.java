@@ -155,14 +155,14 @@ public class ProhibitedPolygonRwp
             currentPoint = this.lastWaypoint;
             if (!pathIntersects(this.polygon, currentPoint, nextPoint)) {
                 if(!isInside(this.insidePolygon, currentPoint)) {
-                  if(SimClock.getIntTime() >= 1500.0) {
+                  if(SimClock.getIntTime() % 1000.0 == 0) {
                     p.addWaypoint(nextPoint);
                     this.lastWaypoint = nextPoint;
                     return p;
                   }
                } else {
                     if (calculateDistance(nextPoint, finalPoint) < calculateDistance(currentPoint, finalPoint)) {
-                      if(SimClock.getIntTime() >= 1500.0) {
+                      if(SimClock.getIntTime() % 1000.0 == 0) {
                         p.addWaypoint(nextPoint);
                         this.lastWaypoint = nextPoint;
                         return p;
@@ -176,7 +176,7 @@ public class ProhibitedPolygonRwp
 
         if (calculateDistance(currentPoint, finalPoint) < 500) {
             if (!pathIntersects(this.polygon, currentPoint, finalPoint)) {
-              if(SimClock.getIntTime() >= 1500.0) {
+              if(SimClock.getIntTime() % 2000.0 == 0) {
                 p.addWaypoint(finalPoint);
                 this.lastWaypoint = finalPoint;
                 return p;
@@ -187,8 +187,8 @@ public class ProhibitedPolygonRwp
                     if(!(calculateDistance(nextPoint,finalPoint)>calculateDistance(currentPoint,finalPoint))) {
                         currentPoint = this.lastWaypoint;
                         if (!pathIntersects(this.polygon, currentPoint, nextPoint)) {
-                          if(SimClock.getIntTime() >= 1500.0) {
-                          p.addWaypoint(nextPoint);
+                          if(SimClock.getIntTime() % 1000.0 == 0) {
+                            p.addWaypoint(nextPoint);
                             this.lastWaypoint = nextPoint;
                             return p;
                           }
