@@ -153,13 +153,20 @@ public class ProhibitedPolygonRwp
             nextPoint = getNextLocation();
             currentPoint = this.lastWaypoint;
             if (!pathIntersects(this.polygon, currentPoint, nextPoint)) {
-                if (calculateDistance(nextPoint, finalPoint) < calculateDistance(currentPoint, finalPoint)) {
+                if(!isInside(this.insidePolygon, currentPoint)) {
                     p.addWaypoint(nextPoint);
                     this.lastWaypoint = nextPoint;
                     return p;
-                }
+               } else {
+                    if (calculateDistance(nextPoint, finalPoint) < calculateDistance(currentPoint, finalPoint)) {
+                        p.addWaypoint(nextPoint);
+                        this.lastWaypoint = nextPoint;
+                        return p;
+                    }
+               }
+
             }
-        } while (calculateDistance(nextPoint, finalPoint) < calculateDistance(currentPoint, finalPoint));
+        } while (calculateDistance(nextPoint, finalPoint) < calculateDistance(currentPoint, finalPoint) );
 
 
         if (calculateDistance(currentPoint, finalPoint) < 500) {
