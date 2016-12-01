@@ -4,7 +4,6 @@ import core.Coord;
 import core.Settings;
 import core.SimClock;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -27,6 +26,12 @@ public class ProhibitedPolygonRwp extends MovementModel {
 
     public int randomInt;
     public Random random = new Random();
+
+    private static enum State {
+        STATIONARY, VOYAGER
+    }
+
+    private State state;
     //==========================================================================//
 
 
@@ -50,26 +55,26 @@ public class ProhibitedPolygonRwp extends MovementModel {
 
     Map<Coord, ArrayList<Double>> attractionPointsMap = new HashMap<Coord, ArrayList<Double>>() {{
         put( new Coord(1350.0, 100.0), new ArrayList<Double>() {{ add(10.0); }});
+        put( new Coord(2250.0, 400.0), new ArrayList<Double>() {{ add(400.0); }});
         put( new Coord(900.0, 100.0), new ArrayList<Double>() {{ add(20.0); }});
+      //put( new Coord(100.0, 100.0), new ArrayList<Double>() {{ add(20.0); }});
         put( new Coord(500.0, 100.0), new ArrayList<Double>() {{ add(20.0); }});
         put( new Coord(530.0, 800.0), new ArrayList<Double>() {{ add(40.0); }});
         put( new Coord(900.0, 1000.0), new ArrayList<Double>() {{ add(40.0); }});
         put( new Coord(1350.0, 1000.0), new ArrayList<Double>() {{ add(40.0); }});
         put( new Coord(1700.0, 1000.0), new ArrayList<Double>() {{ add(60.0); }});
         put( new Coord(2000.0, 1000.0), new ArrayList<Double>() {{ add(100.0); }});
-        put( new Coord(530.0, 700), new ArrayList<Double>() {{ add(400.0); }});
+        put( new Coord(530.0, 700.0), new ArrayList<Double>() {{ add(400.0); }});
+        put( new Coord(1000.0, 450.0), new ArrayList<Double>() {{ add(100.0); }});
+        put( new Coord(1100.0, 450.0), new ArrayList<Double>() {{ add(100.0); }});
+        put( new Coord(1200.0, 450.0), new ArrayList<Double>() {{ add(100.0); }});
+        put( new Coord(1300.0, 450.0), new ArrayList<Double>() {{ add(100.0); }});
+        put( new Coord(1000.0, 550.0), new ArrayList<Double>() {{ add(100.0); }});
+        put( new Coord(1100.0, 550.0), new ArrayList<Double>() {{ add(100.0); }});
+        put( new Coord(1200.0, 550.0), new ArrayList<Double>() {{ add(100.0); }});
+        put( new Coord(1300.0, 550.0), new ArrayList<Double>() {{ add(100.0); }});
     }};
 
-
-    final List<Coord> pathPoints = Arrays.asList(
-            new Coord(1650.0, 400.0),
-            new Coord(1330.0, 400.0),
-            new Coord(930.0, 400.0),
-            new Coord(530.0, 400.0),
-            new Coord(930.0, 600.0),
-            new Coord(1330.0, 600.0),
-            new Coord(1650.0, 600.0)
-    );
 
     final List<Coord> insidePolygon = Arrays.asList(
             new Coord(2000.0, 400.0),
@@ -79,12 +84,12 @@ public class ProhibitedPolygonRwp extends MovementModel {
             new Coord(2000.0, 400.0)
     );
 
-    final List<Coord> test = Arrays.asList(
-            new Coord(1350.0, 650.0),
-            new Coord(530.0, 600.0),
-            new Coord(750.0, 450.0),
-            new Coord(1000.0, 650.0),
-            new Coord(1000.0, 400.0)
+    final List<Coord> ubahnPolygon = Arrays.asList(
+            new Coord(1700.0, 350.0),
+            new Coord(1550.0, 350.0),
+            new Coord(1550.0, 100.0),
+            new Coord(1700.0, 100.0),
+            new Coord(1700.0, 350.0)
     );
 
     final List<Coord> polygon = Arrays.asList(
@@ -155,22 +160,20 @@ public class ProhibitedPolygonRwp extends MovementModel {
         final Path p;
         p = new Path(super.generateSpeed());
         p.addWaypoint(this.lastWaypoint.clone());
+        this.state = this.updateState( this.state );
 
 
         // Add only one point. An arbitrary number of Coords could be added to
         // the path here and the simulator will follow the full path before
         // asking for -the next one.
         Coord nextPoint;
-
-
         if (this.finalPoint == null) {
-            getFinalCoordination();
+            getFinalLocation();
         }
-
         Coord currentPoint = this.lastWaypoint;
 
         if (SimClock.getIntTime() % timeSlot == 0) {
-            getFinalCoordination();
+            getFinalLocation();
         } else {
             if (!this.finalPoint.equals(currentPoint)) {
                 do {
@@ -225,7 +228,31 @@ public class ProhibitedPolygonRwp extends MovementModel {
         return p;
     }
 
-    private void getFinalCoordination() {
+    private State getState() {
+        if ( rng.nextDouble() < 0.25 ) {
+            return State.VOYAGER;
+        } else {
+            return State.STATIONARY;
+        }
+    }
+
+    private State updateState( final State state ) {
+        switch ( state ) {
+            case STATIONARY: {
+                final double r = rng.nextDouble();
+                return ( r < 0.25 ) ? ( State.STATIONARY ) : ( State.VOYAGER );
+            }
+            case VOYAGER: {
+                final double r = rng.nextDouble();
+                return ( r < 0.25 ) ? ( State.STATIONARY ) : ( State.VOYAGER );
+            }
+            default: {
+                throw new RuntimeException( "Invalid state." );
+            }
+        }
+    }
+
+    private void getFinalLocation() {
         double randomDouble = random.nextDouble();
 
         for (Map.Entry<Coord, ArrayList<Double>> entry : this.attractionPointsMap.entrySet()) {
@@ -259,8 +286,6 @@ public class ProhibitedPolygonRwp extends MovementModel {
             }
             i++;
         }
-
-        //this.lastWaypoint = new Coord(1350.0, 1000.0);
         return this.lastWaypoint;
 
     }
@@ -318,6 +343,7 @@ public class ProhibitedPolygonRwp extends MovementModel {
         // Read the invert setting
         this.invert = settings.getBoolean(INVERT_SETTING, INVERT_DEFAULT);
         calculateProbabilities();
+        this.state=getState();
     }
 
     public ProhibitedPolygonRwp(final ProhibitedPolygonRwp other) {
@@ -328,6 +354,7 @@ public class ProhibitedPolygonRwp extends MovementModel {
         // Remember to copy any state defined in this class.
         this.invert = other.invert;
         calculateProbabilities();
+        this.state=getState();
     }
     //==========================================================================//
 
