@@ -54,7 +54,7 @@ public class ProhibitedPolygonRwp extends MovementModel {
 
 
     Map<Coord, ArrayList<Double>> attractionPointsMap = new HashMap<Coord, ArrayList<Double>>() {{
-        put( new Coord(1350.0, 100.0), new ArrayList<Double>() {{ add(10.0); }});
+        put( new Coord(1350.0, 100.0), new ArrayList<Double>() {{ add(20.0); }});
         put( new Coord(2250.0, 400.0), new ArrayList<Double>() {{ add(400.0); }});
         put( new Coord(900.0, 100.0), new ArrayList<Double>() {{ add(20.0); }});
       //put( new Coord(100.0, 100.0), new ArrayList<Double>() {{ add(20.0); }});
@@ -173,6 +173,7 @@ public class ProhibitedPolygonRwp extends MovementModel {
         Coord currentPoint = this.lastWaypoint;
 
         if (SimClock.getIntTime() % timeSlot == 0) {
+            this.state = State.VOYAGER;
             getFinalLocation();
         } else {
             if (!this.finalPoint.equals(currentPoint)) {
