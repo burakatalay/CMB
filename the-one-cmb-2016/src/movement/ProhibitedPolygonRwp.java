@@ -46,27 +46,36 @@ public class ProhibitedPolygonRwp extends MovementModel {
     //==========================================================================//
 
     Map<Coord, ArrayList<Double>> attractionPointsMap = new HashMap<Coord, ArrayList<Double>>() {{
-        put( new Coord(1350.0, 100.0), new ArrayList<Double>() {{ add(20.0); }});
-        put( new Coord(2250.0, 400.0), new ArrayList<Double>() {{ add(400.0); }});
-        put( new Coord(900.0, 100.0), new ArrayList<Double>() {{ add(20.0); }});
-      //put( new Coord(100.0, 100.0), new ArrayList<Double>() {{ add(20.0); }});
-        put( new Coord(500.0, 100.0), new ArrayList<Double>() {{ add(20.0); }});
-        put( new Coord(530.0, 800.0), new ArrayList<Double>() {{ add(40.0); }});
-        put( new Coord(900.0, 1000.0), new ArrayList<Double>() {{ add(40.0); }});
-        put( new Coord(1350.0, 1000.0), new ArrayList<Double>() {{ add(40.0); }});
-        put( new Coord(1700.0, 1000.0), new ArrayList<Double>() {{ add(60.0); }});
-        put( new Coord(2000.0, 1000.0), new ArrayList<Double>() {{ add(100.0); }});
-        put( new Coord(530.0, 700.0), new ArrayList<Double>() {{ add(400.0); }});
-        put( new Coord(1000.0, 450.0), new ArrayList<Double>() {{ add(100.0); }});
-        put( new Coord(1100.0, 450.0), new ArrayList<Double>() {{ add(100.0); }});
-        put( new Coord(1200.0, 450.0), new ArrayList<Double>() {{ add(100.0); }});
-        put( new Coord(1300.0, 450.0), new ArrayList<Double>() {{ add(100.0); }});
-        put( new Coord(1000.0, 550.0), new ArrayList<Double>() {{ add(100.0); }});
-        put( new Coord(1100.0, 550.0), new ArrayList<Double>() {{ add(100.0); }});
-        put( new Coord(1200.0, 550.0), new ArrayList<Double>() {{ add(100.0); }});
-        put( new Coord(1300.0, 550.0), new ArrayList<Double>() {{ add(100.0); }});
+        put( new Coord(1350.0, 100.0), new ArrayList<Double>() {{ add(1.0); add(20.0); }});
+        put( new Coord(2250.0, 400.0), new ArrayList<Double>() {{ add(1.0); add(400.0); }});
+        put( new Coord(900.0, 100.0), new ArrayList<Double>() {{ add(1.0); add(20.0); }});
+      //put( new Coord(100.0, 100.0), new ArrayList<Double>() {{ add(1.0); add(20.0); }});
+        put( new Coord(500.0, 100.0), new ArrayList<Double>() {{ add(1.0); add(20.0); }});
+        put( new Coord(530.0, 800.0), new ArrayList<Double>() {{ add(1.0); add(40.0); }});
+        put( new Coord(900.0, 1000.0), new ArrayList<Double>() {{ add(1.0); add(40.0); }});
+        put( new Coord(1350.0, 1000.0), new ArrayList<Double>() {{ add(1.0); add(40.0); }});
+        put( new Coord(1700.0, 1000.0), new ArrayList<Double>() {{ add(1.0); add(60.0); }});
+        put( new Coord(2000.0, 1000.0), new ArrayList<Double>() {{ add(1.0); add(100.0); }});
+        put( new Coord(530.0, 700.0), new ArrayList<Double>() {{ add(1.0); add(400.0); }});
+        put( new Coord(1000.0, 450.0), new ArrayList<Double>() {{ add(1.0); add(100.0); }});
+        put( new Coord(1100.0, 450.0), new ArrayList<Double>() {{ add(1.0); add(100.0); }});
+        put( new Coord(1200.0, 450.0), new ArrayList<Double>() {{ add(1.0); add(100.0); }});
+        put( new Coord(1300.0, 450.0), new ArrayList<Double>() {{ add(1.0); add(100.0); }});
+        put( new Coord(1000.0, 550.0), new ArrayList<Double>() {{ add(1.0); add(100.0); }});
+        put( new Coord(1100.0, 550.0), new ArrayList<Double>() {{ add(1.0); add(100.0); }});
+        put( new Coord(1200.0, 550.0), new ArrayList<Double>() {{ add(1.0); add(100.0); }});
+        put( new Coord(1300.0, 550.0), new ArrayList<Double>() {{ add(1.0); add(100.0); }});
+
+        //Below coords are entry exit points in the building
+        put( new Coord(1700.0, 400.0), new ArrayList<Double>() {{ add(0.0); add(1000.0); }});
+        put( new Coord(450.0, 600.0), new ArrayList<Double>() {{ add(0.0); add(1000.0); }});
     }};
 
+
+    private final Map<Coord, Coord> entryExitPoints = new HashMap<Coord, Coord>(){{
+        put(new Coord(1700.0, 300.0), new Coord(1700.0, 400.0));
+        put(new Coord(350.0, 600.0), new Coord(450.0, 600.0));
+    }};
 
     final List<Coord> insidePolygon = Arrays.asList(
             new Coord(2000.0, 400.0),
@@ -76,13 +85,6 @@ public class ProhibitedPolygonRwp extends MovementModel {
             new Coord(2000.0, 400.0)
     );
 
-    final List<Coord> ubahnPolygon = Arrays.asList(
-            new Coord(1700.0, 350.0),
-            new Coord(1550.0, 350.0),
-            new Coord(1550.0, 100.0),
-            new Coord(1700.0, 100.0),
-            new Coord(1700.0, 350.0)
-    );
 
     final List<Coord> polygon = Arrays.asList(
             new Coord(0, 0),
@@ -153,8 +155,6 @@ public class ProhibitedPolygonRwp extends MovementModel {
         p = new Path(super.generateSpeed());
         p.addWaypoint(this.lastWaypoint.clone());
 
-
-
         // Add only one point. An arbitrary number of Coords could be added to
         // the path here and the simulator will follow the full path before
         // asking for -the next one.
@@ -165,59 +165,81 @@ public class ProhibitedPolygonRwp extends MovementModel {
         Coord currentPoint = this.lastWaypoint;
 
 
-        if(this.lastWaypoint.equals(new Coord(1700.0, 300.0))){
+        if( currentPoint.equals(new Coord(1700.0, 300.0))){
             nextPoint = new Coord(1700.0, 400.0);
             p.addWaypoint(nextPoint);
             this.lastWaypoint = nextPoint;
             return p;
-        }else{
-            if (SimClock.getIntTime() % timeSlot == 0) {
-                getFinalLocation();
-            } else {
-                if (!this.finalPoint.equals(currentPoint)) {
-                    do {
-                        nextPoint = getNextLocation();
-                        if (!pathIntersects(this.polygon, currentPoint, nextPoint)) {
-                            if (isOutside(this.insidePolygon, currentPoint)) {
+        }else if(currentPoint.equals(new Coord(350.0, 600.0))){
+            nextPoint = new Coord(450.0, 600.0);
+            p.addWaypoint(nextPoint);
+            this.lastWaypoint = nextPoint;
+            return p;
+        }
+
+
+        if (SimClock.getIntTime() % timeSlot == 0) {
+            getFinalLocation();
+            if(SimClock.getIntTime() / timeSlot == 1){
+                activateEntryExitsToAttractionPoint();
+                calculateProbabilities();
+            }else if(SimClock.getTime() / timeSlot > 2.0){
+
+            }
+        } else {
+            if (!this.finalPoint.equals(currentPoint)) {
+                do {
+                    nextPoint = getNextLocation();
+                    if (!pathIntersects(this.polygon, currentPoint, nextPoint)) {
+                        if (isOutside(this.insidePolygon, currentPoint)) {
+                            p.addWaypoint(nextPoint);
+                            this.lastWaypoint = nextPoint;
+                            return p;
+                        } else {
+                            if (calculateDistance(nextPoint, finalPoint) < calculateDistance(currentPoint, finalPoint)) {
                                 p.addWaypoint(nextPoint);
                                 this.lastWaypoint = nextPoint;
                                 return p;
-                            } else {
-                                if (calculateDistance(nextPoint, finalPoint) < calculateDistance(currentPoint, finalPoint)) {
+                            }
+                        }
+                    }
+                } while (calculateDistance(nextPoint, finalPoint) < calculateDistance(currentPoint, finalPoint));
+
+                if (calculateDistance(currentPoint, finalPoint) < 500) {
+                    if (!pathIntersects(this.polygon, currentPoint, finalPoint)) {
+                        p.addWaypoint(finalPoint);
+                        this.lastWaypoint = finalPoint;
+                        return p;
+
+                    } else {
+                        do {
+                            nextPoint = getNextLocation();
+                            if (!(calculateDistance(nextPoint, finalPoint) > calculateDistance(currentPoint, finalPoint))) {
+                                currentPoint = this.lastWaypoint;
+                                if (!pathIntersects(this.polygon, currentPoint, nextPoint)) {
+
                                     p.addWaypoint(nextPoint);
                                     this.lastWaypoint = nextPoint;
                                     return p;
                                 }
                             }
+
+
                         }
-                    } while (calculateDistance(nextPoint, finalPoint) < calculateDistance(currentPoint, finalPoint));
-
-
-                    if (calculateDistance(currentPoint, finalPoint) < 500) {
-                        if (!pathIntersects(this.polygon, currentPoint, finalPoint)) {
-                            p.addWaypoint(finalPoint);
-                            this.lastWaypoint = finalPoint;
-                            return p;
-
-                        } else {
-                            do {
-                                nextPoint = getNextLocation();
-                                if (!(calculateDistance(nextPoint, finalPoint) > calculateDistance(currentPoint, finalPoint))) {
-                                    currentPoint = this.lastWaypoint;
-                                    if (!pathIntersects(this.polygon, currentPoint, nextPoint)) {
-
-                                        p.addWaypoint(nextPoint);
-                                        this.lastWaypoint = nextPoint;
-                                        return p;
-                                    }
-                                }
-
-
-                            }
-                            while ((!pathIntersects(this.polygon, currentPoint, nextPoint)) && (calculateDistance(nextPoint, finalPoint) < calculateDistance(currentPoint, finalPoint)));
-                        }
+                        while ((!pathIntersects(this.polygon, currentPoint, nextPoint)) && (calculateDistance(nextPoint, finalPoint) < calculateDistance(currentPoint, finalPoint)));
                     }
-                } else {
+                }
+            } else {
+                if(currentPoint.equals(new Coord(1700.0, 400.0))){
+                    nextPoint = new Coord(1700.0, 300.0);
+                    this.lastWaypoint = nextPoint;
+                    p.addWaypoint(nextPoint);
+                    return p;
+
+                }else if(currentPoint.equals(new Coord(450.0, 600.0))){
+                    nextPoint = new Coord(350.0, 600.0);
+                    this.lastWaypoint = nextPoint;
+                    p.addWaypoint(nextPoint);
                     return p;
                 }
 
@@ -236,15 +258,28 @@ public class ProhibitedPolygonRwp extends MovementModel {
        this.nodeSituationState = state;
     }
 
+    private void activateEntryExitsToAttractionPoint(){
+
+        for (Map.Entry<Coord, ArrayList<Double>> entry : this.attractionPointsMap.entrySet()) {
+            if(entry.getValue().get(0) == 0.0) {
+                entry.getValue().set(0, 1.0);
+            }
+        }
+
+
+    }
+
     private void getFinalLocation() {
         double randomDouble = random.nextDouble();
 
         for (Map.Entry<Coord, ArrayList<Double>> entry : this.attractionPointsMap.entrySet()) {
-            double lowerBound = entry.getValue().get(1);
-            double upperBound = entry.getValue().get(2);
-            if (lowerBound <= randomDouble && randomDouble <= upperBound) {
-                this.finalPoint = entry.getKey();
-                break;
+            if(entry.getValue().get(0) == 1.0) {
+                double lowerBound = entry.getValue().get(2);
+                double upperBound = entry.getValue().get(3);
+                if (lowerBound <= randomDouble && randomDouble <= upperBound) {
+                    this.finalPoint = entry.getKey();
+                    break;
+                }
             }
         }
     }
@@ -256,27 +291,23 @@ public class ProhibitedPolygonRwp extends MovementModel {
     @Override
     public Coord getInitialLocation() {
 
-/*
-        randomInt = random.nextInt(this.attractionPointsMap.size());
-        Set set = this.attractionPointsMap.entrySet();
+
+        int randomInt = random.nextInt(this.entryExitPoints.size());
+        Set set = this.entryExitPoints.entrySet();
         Iterator iterator = set.iterator();
 
         int i = 0;
 
-        while(iterator.hasNext() && i<=randomInt){
+        while(iterator.hasNext() && i <= randomInt){
             Map.Entry mapEntry = (Map.Entry) iterator.next();
             if(i == randomInt){
                 this.lastWaypoint = (Coord) mapEntry.getKey();
                 break;
             }
+
             i++;
         }
-        return this.lastWaypoint;
-        */
 
-      if(this.lastWaypoint == null){
-          this.lastWaypoint = new Coord(1700.0, 300.0);
-      }
         return this.lastWaypoint;
 
     }
@@ -300,20 +331,24 @@ public class ProhibitedPolygonRwp extends MovementModel {
         double totalCapacity = 0.0;
 
         for (Map.Entry<Coord, ArrayList<Double>> entry : this.attractionPointsMap.entrySet()) {
-            totalCapacity += entry.getValue().get(0);
+            if(entry.getValue().get(0) == 1.0) {
+                totalCapacity += entry.getValue().get(1);
+            }
         }
 
         double totalProbability = 0.0;
 
         for (Map.Entry<Coord, ArrayList<Double>> entry : this.attractionPointsMap.entrySet()) {
-            double roomCapacity = entry.getValue().get(0);
-            double probability = roomCapacity / totalCapacity;
+            if(entry.getValue().get(0) == 1.0) {
+                double roomCapacity = entry.getValue().get(1);
+                double probability = roomCapacity / totalCapacity;
 
-            this.attractionPointsMap.get(entry.getKey()).add(totalProbability);
+                this.attractionPointsMap.get(entry.getKey()).add(totalProbability);
 
-            totalProbability += probability;
+                totalProbability += probability;
 
-            this.attractionPointsMap.get(entry.getKey()).add(totalProbability);
+                this.attractionPointsMap.get(entry.getKey()).add(totalProbability);
+            }
         }
 
     }
@@ -326,29 +361,27 @@ public class ProhibitedPolygonRwp extends MovementModel {
 
     @Override
     public boolean isActive(){
-        final double curTime = SimClock.getTime();
-        //return ((curTime >= 0.0) && (curTime <= 1000.0));
 
-        if( (this.lastWaypoint.equals(new Coord(1700.0, 300.0)) && this.getNodeSituationState().name().equals("INACTIVE")) || this.getNodeSituationState().name().equals("ACTIVE")){
-            this.updateNodeSituationState(NodeSituationState.ACTIVE);
+        if(isEntryExitPoint()){
+            if(this.finalPoint == null && this.getNodeSituationState().name().equals("INACTIVE")){
+                this.updateNodeSituationState(NodeSituationState.ACTIVE);
+                return true;
+            }else{
+                this.updateNodeSituationState(NodeSituationState.INACTIVE);
+                return false;
+            }
+        }else{
             return true;
         }
 
+    }
 
+    private boolean isEntryExitPoint(){
+        if( this.lastWaypoint.equals(new Coord(1700.0, 300.0)) || this.lastWaypoint.equals(new Coord(350.0, 600.0))){
+            return true;
+        }
         return false;
     }
-/*
-    @Override
-    public double nextPathAvailable() {
-        final double curTime = SimClock.getTime();
-        if ( curTime < 1000.0 ) {
-            return this.activeStart;
-        } else if ( curTime > 1500.0 ) {
-            return Double.MAX_VALUE;
-        }
-        return curTime;
-    }
-    */
 
     //==========================================================================//
 
@@ -361,7 +394,6 @@ public class ProhibitedPolygonRwp extends MovementModel {
         // Read the invert setting
         this.invert = settings.getBoolean(INVERT_SETTING, INVERT_DEFAULT);
         calculateProbabilities();
-
         this.updateNodeSituationState(NodeSituationState.INACTIVE);
     }
 
@@ -373,8 +405,6 @@ public class ProhibitedPolygonRwp extends MovementModel {
         // Remember to copy any state defined in this class.
         this.invert = other.invert;
         calculateProbabilities();
-
-
         this.updateNodeSituationState(NodeSituationState.INACTIVE);
     }
     //==========================================================================//
