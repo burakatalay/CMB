@@ -3,6 +3,7 @@ package movement;
 import core.Coord;
 import core.Settings;
 import core.SimClock;
+import core.World;
 
 import java.util.*;
 
@@ -354,9 +355,7 @@ public class ProhibitedPolygonRwp extends MovementModel {
     }
 
     private Coord randomCoord() {
-        return new Coord(
-                random.nextDouble() * super.getMaxX(),
-                random.nextDouble() * super.getMaxY());
+        return new Coord( random.nextDouble() * super.getMaxX(), random.nextDouble() * super.getMaxY());
     }
 
     @Override
@@ -366,6 +365,7 @@ public class ProhibitedPolygonRwp extends MovementModel {
             if(this.finalPoint == null && this.getNodeSituationState().name().equals("INACTIVE")){
                 this.updateNodeSituationState(NodeSituationState.ACTIVE);
                 return true;
+
             }else{
                 this.updateNodeSituationState(NodeSituationState.INACTIVE);
                 return false;

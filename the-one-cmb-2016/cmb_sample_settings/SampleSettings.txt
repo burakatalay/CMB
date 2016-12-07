@@ -1,7 +1,7 @@
 ## Settings that define ProhibitedPolygonRwp movement with one group of nodes.
 
 Scenario.name = ProhibitedPolygon1
-Scenario.endTime = 60000
+Scenario.endTime = 7000
 Scenario.updateInterval = 0.1
 Scenario.simulateConnections = false
 MovementModel.worldSize = 3000,3000
@@ -17,7 +17,7 @@ myInterface.transmitRange = 0
 myInterface.transmitSpeed = 0
 Group1.movementModel = ProhibitedPolygonRwp
 Group1.router = PassiveRouter
-Group1.rwpInvert = true
+Group1.rwp"Invert = true
 
 Group2.groupID = y
 Group2.nrofHosts = 0
@@ -34,5 +34,12 @@ MapBasedMovement.mapFile1 = data/cluster/ferryroute.wkt
 
 
 
-Report.nrofReports = 0
+Report.nrofReports = 1
+Report.report1 = NodeDensityReport
 Report.reportDir = reports
+
+NodeDensityReport.sampleInterval = 100
+NodeDensityReport.outputGnuplot = true
+NodeDensityReport.xCount = 5
+NodeDensityReport.yCount = 5
+NodeDensityReport.onlyAverage = true
