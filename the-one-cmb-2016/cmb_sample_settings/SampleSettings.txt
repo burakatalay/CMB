@@ -1,7 +1,7 @@
 ## Settings that define ProhibitedPolygonRwp movement with one group of nodes.
 
 Scenario.name = ProhibitedPolygon1
-Scenario.endTime = 7000
+Scenario.endTime = 36000
 Scenario.updateInterval = 0.1
 Scenario.simulateConnections = false
 MovementModel.worldSize = 3000,3000
@@ -9,7 +9,7 @@ Events.nrof = 0
 
 Scenario.nrofHostGroups = 2
 Group1.groupID = x
-Group1.nrofHosts = 150
+Group1.nrofHosts = 100
 Group1.nrofInterfaces = 1
 Group1.interface1 = myInterface
 myInterface.type = SimpleBroadcastInterface
@@ -38,8 +38,8 @@ Report.nrofReports = 1
 Report.report1 = NodeDensityReport
 Report.reportDir = reports
 
-NodeDensityReport.sampleInterval = 100
+NodeDensityReport.sampleInterval = 1200
 NodeDensityReport.outputGnuplot = true
-NodeDensityReport.xCount = 5
-NodeDensityReport.yCount = 5
-NodeDensityReport.onlyAverage = true
+NodeDensityReport.xCount = 75
+NodeDensityReport.yCount = 75
+NodeDensityReport.onlyAverage = false
