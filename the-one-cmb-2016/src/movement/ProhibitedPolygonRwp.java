@@ -166,44 +166,22 @@ public class ProhibitedPolygonRwp extends MovementModel {
         if(this.state==State.VOYAGER) {
             Coord c;
 
-            if( currentPoint.equals(new Coord(1700.0, 300.0))){
-                nextPoint = new Coord(1700.0, 400.0);
-                p.addWaypoint(nextPoint);
-                this.lastWaypoint = nextPoint;
-                return p;
-            }else if(currentPoint.equals(new Coord(350.0, 600.0))){
-                nextPoint = new Coord(450.0, 600.0);
-                p.addWaypoint(nextPoint);
-                this.lastWaypoint = nextPoint;
-                return p;
-            }
-
+            if (fromOutsideToInside(p, currentPoint)) return p;
 
             do {
                 c = this.randomCoord();
             } while (pathIntersects( this.polygon, this.lastWaypoint, c ) );
             p.addWaypoint( c );
-
             this.lastWaypoint = c;
             return p;
+
         } else {
 
             if (this.finalPoint == null) {
                 getFinalLocation();
             }
 
-            if( currentPoint.equals(new Coord(1700.0, 300.0))){
-                nextPoint = new Coord(1700.0, 400.0);
-                p.addWaypoint(nextPoint);
-                this.lastWaypoint = nextPoint;
-                return p;
-            }else if(currentPoint.equals(new Coord(350.0, 600.0))){
-                nextPoint = new Coord(450.0, 600.0);
-                p.addWaypoint(nextPoint);
-                this.lastWaypoint = nextPoint;
-                return p;
-            }
-
+            if (fromOutsideToInside(p, currentPoint)) return p;
 
             if (SimClock.getIntTime() % timeSlot == 0) {
                 getFinalLocation();
@@ -257,27 +235,46 @@ public class ProhibitedPolygonRwp extends MovementModel {
                         }
                     }
                 } else {
-                    if(currentPoint.equals(new Coord(1700.0, 400.0))){
-                        nextPoint = new Coord(1700.0, 300.0);
-                        this.lastWaypoint = nextPoint;
-                        p.addWaypoint(nextPoint);
-                        return p;
-
-                    }else if(currentPoint.equals(new Coord(450.0, 600.0))){
-                        nextPoint = new Coord(350.0, 600.0);
-                        this.lastWaypoint = nextPoint;
-                        p.addWaypoint(nextPoint);
-                        return p;
-                    }
-
+                    if (fromInsideToOutside(p, currentPoint)) return p;
                 }
-
             }
-
             return p;
         }
 
 
+    }
+
+    private boolean fromInsideToOutside(Path p, Coord currentPoint) {
+        Coord nextPoint;
+        if(currentPoint.equals(new Coord(1700.0, 400.0))){
+            nextPoint = new Coord(1700.0, 300.0);
+            this.lastWaypoint = nextPoint;
+            p.addWaypoint(nextPoint);
+            return true;
+
+        }else if(currentPoint.equals(new Coord(450.0, 600.0))){
+            nextPoint = new Coord(350.0, 600.0);
+            this.lastWaypoint = nextPoint;
+            p.addWaypoint(nextPoint);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean fromOutsideToInside(Path p, Coord currentPoint) {
+        Coord nextPoint;
+        if( currentPoint.equals(new Coord(1700.0, 300.0))){
+            nextPoint = new Coord(1700.0, 400.0);
+            p.addWaypoint(nextPoint);
+            this.lastWaypoint = nextPoint;
+            return true;
+        }else if(currentPoint.equals(new Coord(350.0, 600.0))){
+            nextPoint = new Coord(450.0, 600.0);
+            p.addWaypoint(nextPoint);
+            this.lastWaypoint = nextPoint;
+            return true;
+        }
+        return false;
     }
 
     private NodeSituationState getNodeSituationState() {
