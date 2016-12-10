@@ -9,7 +9,7 @@ Events.nrof = 0
 
 Scenario.nrofHostGroups = 2
 Group1.groupID = x
-Group1.nrofHosts = 100
+Group1.nrofHosts = 1000
 Group1.nrofInterfaces = 1
 Group1.interface1 = myInterface
 myInterface.type = SimpleBroadcastInterface

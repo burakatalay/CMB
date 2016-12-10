@@ -52,12 +52,12 @@ public class ProhibitedPolygonRwp extends MovementModel {
         put( new Coord(900.0, 100.0), new ArrayList<Double>() {{ add(1.0); add(20.0); }});
       //put( new Coord(100.0, 100.0), new ArrayList<Double>() {{ add(1.0); add(20.0); }});
         put( new Coord(500.0, 100.0), new ArrayList<Double>() {{ add(1.0); add(20.0); }});
-        put( new Coord(530.0, 800.0), new ArrayList<Double>() {{ add(1.0); add(40.0); }});
-        put( new Coord(900.0, 1000.0), new ArrayList<Double>() {{ add(1.0); add(40.0); }});
-        put( new Coord(1350.0, 1000.0), new ArrayList<Double>() {{ add(1.0); add(40.0); }});
-        put( new Coord(1700.0, 1000.0), new ArrayList<Double>() {{ add(1.0); add(60.0); }});
+        put( new Coord(530.0, 800.0), new ArrayList<Double>() {{ add(1.0); add(20.0); }});
+        put( new Coord(900.0, 1000.0), new ArrayList<Double>() {{ add(1.0); add(20.0); }});
+        put( new Coord(1350.0, 1000.0), new ArrayList<Double>() {{ add(1.0); add(20.0); }});
+        put( new Coord(1700.0, 1000.0), new ArrayList<Double>() {{ add(1.0); add(20.0); }});
         put( new Coord(2000.0, 1000.0), new ArrayList<Double>() {{ add(1.0); add(100.0); }});
-        put( new Coord(530.0, 700.0), new ArrayList<Double>() {{ add(1.0); add(400.0); }});
+        put( new Coord(530.0, 700.0), new ArrayList<Double>() {{ add(1.0); add(290.0); }});
         put( new Coord(1000.0, 450.0), new ArrayList<Double>() {{ add(1.0); add(100.0); }});
         put( new Coord(1100.0, 450.0), new ArrayList<Double>() {{ add(1.0); add(100.0); }});
         put( new Coord(1200.0, 450.0), new ArrayList<Double>() {{ add(1.0); add(100.0); }});
